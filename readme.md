@@ -12,6 +12,9 @@ This package is designed as a complete learning resource for ROS 2 beginners. It
 - **Service Clients** - Calling rotation services
 - **Launch Files** - Starting multiple nodes simultaneously
 
+<br />
+<br />
+
 ## Learning Objectives
 
 By working through this package, you will learn:
@@ -23,6 +26,9 @@ By working through this package, you will learn:
 - How to write launch files for complex systems
 - ROS 2 best practices and conventions
 
+<br />
+<br />
+
 ## Prerequisites
 
 - Ubuntu 22.04 (Jammy Jellyfish)
@@ -30,6 +36,9 @@ By working through this package, you will learn:
 - Python 3.10+
 - Basic understanding of Python programming
 - Terminal/command line familiarity
+
+<br />
+<br />
 
 ### Installation Check
 
@@ -41,13 +50,74 @@ ros2 --version
 
 You should see output similar to: `ros2 cli version: 0.18.x`
 
-## Package Structure
+<br />
+<br />
+
+## Learning Outcomes
+
+After completing these exercises, you should be able to:
+
+- Create ROS 2 workspaces and packages  
+- Write publisher nodes that send messages  
+- Write subscriber nodes that receive messages  
+- Create service servers that handle requests  
+- Create service clients that call services  
+- Write launch files to manage multiple nodes  
+- Use ROS 2 command-line tools for debugging  
+- Understand the publish-subscribe pattern  
+- Understand the request-response pattern
+
+<br />
+<br />
+
+## Exercises
+
+1. Exercise 1: [Setting Up Your Workspace](./exercise_1.md)
+2. Exercise 2: [Creating a Topic Publisher](exercise_2.md)
+3. Exercise 3: [Creating a Topic Subscriber](exercise_3.md)
+4. Exercise 4: [Creating a Service Server](./exercise_4.md)
+5. Exercise 5: [Creating a Service Client](./exercise_5.md)
+6. Exercise 6: [Creating Launch Files](./exercise_6.md)
+
+<br />
+<br />
+
+## Verification Checklist
+
+Use this checklist to verify you've completed everything:
+
+- [ ] Workspace created and built successfully
+- [ ] Package created with correct dependencies
+- [ ] Velocity publisher moves turtle in a circle
+- [ ] Pose subscriber prints turtle position
+- [ ] Rotate service can be called manually
+- [ ] Rotate client works from command line
+- [ ] Basic launch file starts all nodes
+- [ ] All nodes appear in `ros2 node list`
+- [ ] All topics appear in `ros2 topic list`
+
+<br />
+<br />
+
+## Next Steps
+
+Once you've completed all exercises:
+
+1. **Experiment**: Modify the velocity values to create different movement patterns
+2. **Extend**: Add new features (e.g., move to specific coordinates)
+3. **Optimize**: Can you reduce code duplication?
+4. **Document**: Add detailed comments explaining your code
+5. **Share**: Help others who are stuck!
+
+<br />
+<br />
+
+## Final Package Structure
 
 ```
 turtle_controller/
 ├── launch/
 │   ├── turtle_system_launch.py          # Basic launch file
-│   ├── turtle_advanced_launch.py        # Launch file with arguments
 │   └── turtle_complete_launch.py        # Comprehensive launch file
 ├── turtle_controller/
 │   ├── __init__.py
@@ -61,116 +131,8 @@ turtle_controller/
 └── README.md                            # This file
 ```
 
-
-## Nodes Description
-
-### 1. Velocity Publisher (`velocity_publisher`)
-
-Publishes `Twist` messages to `/turtle1/cmd_vel` to make the turtle move in a circular pattern.
-
-**Run standalone:**
-```bash
-ros2 run turtle_controller velocity_publisher
-```
-
-**Topics Published:**
-- `/turtle1/cmd_vel` (geometry_msgs/msg/Twist) - Velocity commands
-
-### 2. Pose Subscriber (`pose_subscriber`)
-
-Subscribes to `/turtle1/pose` and displays the turtle's position and orientation.
-
-**Run standalone:**
-```bash
-ros2 run turtle_controller pose_subscriber
-```
-
-**Topics Subscribed:**
-- `/turtle1/pose` (turtlesim/msg/Pose) - Turtle position and orientation
-
-### 3. Rotate Service (`rotate_service`)
-
-Provides a service to rotate the turtle to a specific angle while maintaining its current position.
-
-**Run standalone:**
-```bash
-ros2 run turtle_controller rotate_service
-```
-
-**Services Provided:**
-- `/rotate_turtle` (turtlesim/srv/TeleportAbsolute) - Rotate to specified angle
-
-**Call the service manually:**
-```bash
-# Rotate to 90 degrees (1.57 radians)
-ros2 service call /rotate_turtle turtlesim/srv/TeleportAbsolute "{x: 0.0, y: 0.0, theta: 1.57}"
-```
-
-### 4. Rotate Client (`rotate_client`)
-
-A command-line client that calls the rotation service with a specified angle in degrees.
-
-**Usage:**
-```bash
-ros2 run turtle_controller rotate_client <angle_in_degrees>
-```
-
-**Examples:**
-```bash
-ros2 run turtle_controller rotate_client 45
-ros2 run turtle_controller rotate_client 90
-ros2 run turtle_controller rotate_client 180
-```
-
-## Usage Examples
-
-### Example 1: Manual Turtle Control with Pose Monitoring
-
-**Terminal 1** - Start turtlesim:
-```bash
-ros2 run turtlesim turtlesim_node
-```
-
-**Terminal 2** - Monitor pose:
-```bash
-ros2 run turtle_controller pose_subscriber
-```
-
-**Terminal 3** - Control with keyboard:
-```bash
-ros2 run turtlesim turtle_teleop_key
-```
-
-### Example 2: Automatic Movement with Service Control
-
-**Terminal 1** - Launch system:
-```bash
-ros2 launch turtle_controller turtle_system_launch.py
-```
-
-**Terminal 2** - Change turtle direction:
-```bash
-ros2 run turtle_controller rotate_client 0
-ros2 run turtle_controller rotate_client 90
-ros2 run turtle_controller rotate_client 180
-```
-
-### Example 3: Advanced Launch with Arguments
-
-**Launch with movement disabled:**
-```bash
-ros2 launch turtle_controller turtle_advanced_launch.py enable_publisher:=false
-```
-
-**Launch without pose subscriber:**
-```bash
-ros2 launch turtle_controller turtle_advanced_launch.py enable_subscriber:=false
-```
-
-**Launch with only turtlesim and service:**
-```bash
-ros2 launch turtle_controller turtle_advanced_launch.py enable_publisher:=false enable_subscriber:=false
-```
+<br />
+<br />
 
 ## Useful Commands
 
@@ -197,19 +159,6 @@ ros2 service type /rotate_turtle
 
 # View computational graph
 rqt_graph
-```
-
-### Debugging
-
-```bash
-# Run with debug output
-ros2 run turtle_controller velocity_publisher --ros-args --log-level debug
-
-# Check node info
-ros2 node info /velocity_publisher
-
-# Monitor topic frequency
-ros2 topic hz /turtle1/cmd_vel
 ```
 
 ## Additional Resources
