@@ -9,7 +9,7 @@
 
 <br />
 
-![image](turtlesim03.png)
+![](./turtlesim03.png)
 
 <br />
 
