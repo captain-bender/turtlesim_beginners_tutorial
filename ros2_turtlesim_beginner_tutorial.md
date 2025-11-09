@@ -7,11 +7,7 @@
 - Start the Xlaunch in order to view the turtlesim graphics.
 - A terminal/command line interface
 
-<br />
-
 ![](./turtlesim03.png)
-
-<br />
 
 ## Table of Contents
 1. [Creating a Workspace](#1-creating-a-workspace)
