@@ -11,7 +11,7 @@ Create a ROS 2 workspace and package from scratch.
 - Navigate to the workspace root
 
 <details>
-<summary>💡 Hint 1.1</summary>
+<summary> Hint 1.1</summary>
 
 Use the `mkdir` command with the `-p` flag to create nested directories.
 ```bash
